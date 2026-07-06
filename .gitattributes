@@ -1,0 +1,24 @@
+# Normalize everything to LF in the repo and working tree.
+# This is what keeps check-site.sh from breaking with \r errors if the repo is
+# ever touched by a Windows-side editor.
+* text=auto eol=lf
+
+# Shell scripts must always be LF, no exceptions.
+*.sh text eol=lf
+
+# Keep known-text formats as LF explicitly.
+*.md   text eol=lf
+*.json text eol=lf
+*.html text eol=lf
+*.css  text eol=lf
+*.js   text eol=lf
+
+# Treat binaries as binary so git never "fixes" their line endings.
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.webp binary
+*.ico  binary
+*.pdf  binary
+*.docx binary

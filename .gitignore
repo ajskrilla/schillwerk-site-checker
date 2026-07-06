@@ -1,0 +1,21 @@
+# Per-run check outputs. These hold prospects' site data (raw HTML, PSI JSON,
+# link reports) and should not be committed to a portfolio repo. The folder
+# itself is kept via checks/.gitkeep.
+checks/*
+!checks/.gitkeep
+
+# Secrets. The PSI key lives in your shell (~/.bashrc), not here — but if you
+# ever move it into a dotenv, this keeps it out of git.
+.env
+.env.*
+*.local
+
+# Node (linkinator / pa11y run via npx, but just in case)
+node_modules/
+npm-debug.log*
+.npm/
+
+# OS + editor cruft
+.DS_Store
+Thumbs.db
+*.swp

@@ -1,67 +1,35 @@
 # Schillwerk Simple Website Checker (Claude-powered)
 
-A simple, one-command, read-only checker for small-business sites, run through
-Claude Code. Point it at a live URL and get a branded, defensible leave-behind:
-real performance numbers, accessibility and SEO passes, broken-link check,
-security and delivery hygiene, and a trust-signal review.
+Read-only prospect website audits, branded report generation, and a full
+audit-to-mock pipeline, run through Claude Code in WSL.
 
-Simple to run, thorough underneath. The everyday run needs no browser and no
-extra services. One deeper check (full WCAG) is opt-in.
+See **RUNBOOK.md** for how to operate this day to day.
 
-## What it checks
-- Performance / Core Web Vitals (PageSpeed Insights, mobile + desktop)
-- Accessibility (Lighthouse score + markup review; full WCAG2AA with `--deep`)
-- SEO basics (title/meta, H1, canonical, Open Graph, JSON-LD, robots, sitemap)
-- Broken links (recursive crawl)
-- Security & delivery hygiene (HTTPS enforcement, www/non-www canonicalization,
-  TLS cert expiry, current security headers, mixed content)
-- Trust signals (contact info, reviews, service area, credentials, clear CTA)
+## Commands
+- `/check <url> [--deep]` — read-only audit (performance, accessibility, SEO,
+  security headers, TLS, redirects, robots/sitemap, mixed content, broken links).
+  `--deep` adds a pa11y WCAG2AA pass. Output: `checks/<domain>-<date>/report.md`.
+- `/report <run-folder> "<Client>"` — branded navy/gold `report.pdf` +
+  editable `report.docx` from a `report.md`.
+- `/ship <url> "<Client>"` — full pipeline: audit, reports, Claude-in-Chrome
+  functionality inventory, and a staged modernized noindexed mock; stops for
+  review, then (after approval) creates a private GitHub repo and deploys a
+  noindexed Cloudflare preview. Output under `~/clients/<site-name>/`.
 
-## One-time setup (you do these)
+## Setup (one-time)
+- WSL2 (Ubuntu), Node via nvm, Claude Code.
+- `PSI_API_KEY` = free Google PageSpeed Insights API key.
+- `sudo apt install pandoc weasyprint` (branded reports).
+- `gh` authenticated (`gh auth status`) and `wrangler` authenticated
+  (`wrangler whoami`) for `/ship`.
+- `chmod +x scripts/*.sh`.
 
-1. Install Claude Code and sign in.
-2. Confirm the collector's dependencies (all standard on macOS/Linux/WSL):
-   `node --version`, `curl --version`, `openssl version`, `python3 --version`.
-3. Get a free Google PageSpeed Insights API key so performance numbers are
-   reliable and not rate-limited:
-   - Google Cloud Console > APIs & Services > enable "PageSpeed Insights API"
-   - Create an API key under Credentials, then:
-     ```bash
-     echo 'export PSI_API_KEY="your-key-here"' >> ~/.zshrc   # or ~/.bashrc
-     ```
-   Runs without a key too, just at Google's lower keyless quota.
-4. Make the collector executable:
-   ```bash
-   chmod +x scripts/check-site.sh
-   ```
-5. (Optional) Keep this folder in its own Git repo so runs are versioned and the
-   checker doubles as AI-native-development portfolio evidence.
+## Layout
+- `.claude/commands/` — the check, report, and ship slash commands.
+- `scripts/` — the read-only collector and the report builder.
+- `assets/` — branding: `report.css` (navy/gold vars at top), cover template,
+  Word reference doc, disclaimer.
+- `checks/` — one folder per audit run (gitignored except `.gitkeep`).
 
-## Running a check (the "one go")
-
-From inside the repo, launch Claude Code and run:
-```
-/check https://prospect-domain.com
-```
-Add `--deep` for a full WCAG2AA accessibility pass (slower; needs headless
-Chrome, which pa11y pulls via npx):
-```
-/check https://prospect-domain.com --deep
-```
-Claude Code gathers the data, reads it, does the markup review, and writes
-`checks/<domain>-<date>/report.md`.
-
-## What it does and does not do
-- Read-only. Never logs in, submits forms, or changes the target site.
-- Every metric traces to a tool output. Nothing is estimated.
-- No guaranteed rankings or results. Findings are issues and opportunities.
-- Business claims (insured, bonded, licensed, service area) are flagged
-  "confirm with client", never asserted.
-- Stops at the markdown report. The client-facing navy/gold PDF + DOCX come from
-  the Schillwerk doc pipeline.
-
-## Files
-- `CLAUDE.md` - context Claude Code loads every session (rules, rubric, output).
-- `.claude/commands/check.md` - the `/check <url> [--deep]` command.
-- `scripts/check-site.sh` - read-only collector.
-- `checks/` - one folder per run.
+Read-only always: the checker never modifies, logs into, or submits anything on
+a live site.

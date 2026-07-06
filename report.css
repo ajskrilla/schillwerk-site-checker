@@ -1,0 +1,131 @@
+/* Schillwerk audit report — print stylesheet (weasyprint).
+   Brand: deep navy + muted gold. Edit the two variables to reskin. */
+
+:root {
+  --navy: #12294A;
+  --gold: #C6A15B;
+  --ink: #1E2733;
+  --muted: #5B6673;
+  --line: #D8DEE6;
+  --band-text: #EAF0F8;
+}
+
+@page {
+  size: Letter;
+  margin: 22mm 20mm 20mm 20mm;
+  @bottom-left {
+    content: "Schillwerk LLC · Confidential";
+    font-family: "Liberation Sans", Arial, sans-serif;
+    font-size: 8pt;
+    color: #8A95A3;
+  }
+  @bottom-right {
+    content: "Page " counter(page) " of " counter(pages);
+    font-family: "Liberation Sans", Arial, sans-serif;
+    font-size: 8pt;
+    color: #8A95A3;
+  }
+}
+
+@page :first { margin: 0; }
+
+* { box-sizing: border-box; }
+
+body {
+  font-family: "Liberation Sans", Arial, sans-serif;
+  color: var(--ink);
+  font-size: 10.5pt;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* ---- Cover band (first page) ---- */
+.cover {
+  background: var(--navy);
+  color: var(--band-text);
+  padding: 34mm 20mm 16mm 20mm;
+  margin-bottom: 12mm;
+}
+.brand {
+  font-size: 22pt;
+  letter-spacing: 6px;
+  font-weight: 700;
+  color: #fff;
+}
+.brand-sub {
+  font-size: 9pt;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-top: 3px;
+}
+.rule {
+  height: 2px;
+  background: var(--gold);
+  width: 64px;
+  margin: 14mm 0 8mm 0;
+}
+.doc-title {
+  font-size: 24pt;
+  line-height: 1.15;
+  color: #fff;
+  margin: 0 0 6mm 0;
+  font-weight: 700;
+}
+.client { font-size: 13pt; color: #fff; }
+.site   { font-size: 11pt; color: var(--gold); margin-top: 2mm; }
+.date   { font-size: 10pt; color: #B9C4D4; margin-top: 6mm; }
+
+main { padding: 0 20mm; }
+
+/* ---- Headings ---- */
+h2 {
+  color: var(--navy);
+  font-size: 15pt;
+  margin: 9mm 0 2mm 0;
+  padding-bottom: 2mm;
+  border-bottom: 2px solid var(--gold);
+}
+h3 {
+  color: var(--navy);
+  font-size: 12pt;
+  margin: 6mm 0 1mm 0;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+p { margin: 0 0 3mm 0; }
+
+/* ---- Issue table ---- */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 3mm 0 5mm 0;
+  font-size: 9.5pt;
+}
+thead th {
+  background: var(--navy);
+  color: #fff;
+  text-align: left;
+  padding: 2.5mm 3mm;
+  font-weight: 600;
+}
+tbody td {
+  padding: 2.5mm 3mm;
+  border-bottom: 1px solid var(--line);
+  vertical-align: top;
+}
+tbody tr:nth-child(even) { background: #F4F6F9; }
+
+/* keep tables and headings from splitting awkwardly */
+tr, h2, h3 { page-break-inside: avoid; }
+h2, h3 { page-break-after: avoid; }
+
+/* ---- Disclaimer ---- */
+.disclaimer {
+  margin: 8mm 20mm 0 20mm;
+  padding-top: 4mm;
+  border-top: 1px solid var(--line);
+  font-size: 8.5pt;
+  color: var(--muted);
+  font-style: italic;
+}
