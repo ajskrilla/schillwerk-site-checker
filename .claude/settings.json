@@ -1,0 +1,48 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(scripts/check-site.sh:*)",
+      "Bash(scripts/crawl-site.sh:*)",
+      "Bash(scripts/build-report.sh:*)",
+      "Bash(bash scripts/*)",
+      "Bash(curl:*)",
+      "Bash(python3:*)",
+      "Bash(npx linkinator:*)",
+      "Bash(npx pa11y:*)",
+      "Bash(npx serve:*)",
+      "Bash(pandoc:*)",
+      "Bash(weasyprint:*)",
+      "Bash(mkdir:*)",
+      "Bash(ls:*)",
+      "Bash(cat:*)",
+      "Bash(cp:*)",
+      "Bash(mv:*)",
+      "Bash(chmod:*)",
+      "Bash(grep:*)",
+      "Bash(find:*)",
+      "Bash(head:*)",
+      "Bash(tail:*)",
+      "Bash(wc:*)",
+      "Bash(sort:*)",
+      "Bash(pdftotext:*)",
+      "Bash(pdfinfo:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git status:*)",
+      "Bash(git commit:*)",
+      "Bash(git log:*)",
+      "Bash(git diff:*)",
+      "Read(*)",
+      "Edit(*)",
+      "Write(*)"
+    ],
+    "ask": [
+      "Bash(gh repo create:*)",
+      "Bash(gh repo delete:*)",
+      "Bash(git push:*)",
+      "Bash(wrangler:*)",
+      "Bash(rm -rf:*)",
+      "Bash(sudo:*)"
+    ]
+  }
+}
